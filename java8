@@ -1,0 +1,39 @@
+// Thread 1: Temperature Monitoring with average calculation class TemperatureMonitor extends Thread { private double[] temperatureReadings = {98.4, 99.0, 100.2, 101.3, 98.9}; 
+ 
+public void run() { double sum = 0; 
+for (double temp : temperatureReadings) { 
+System.out.println("Temperature reading: " + temp + " F"); sum += temp; 
+try { 
+Thread.sleep(1000); // simulate delay for each reading 
+} catch (InterruptedException e) { 
+System.out.println("Temperature monitoring interrupted"); 
+} 
+} 
+double average = sum / temperatureReadings.length; 
+System.out.println("Average Temperature:"+ average + " F"); 	} } 
+ 
+// Thread 2: Heart Rate Monitoring with max detection class HeartRateMonitor extends Thread { private int[] heartRates = {75, 80, 78, 85, 102}; 
+ 
+public void run() { int max = heartRates[0]; for (int rate : heartRates) { 
+System.out.println("Heart rate: " + rate + " bpm"); if (rate > max) { max = rate; 
+} 
+if (rate > 100) { 
+System.out.println("Alert: High heart rate detected (" + rate + " bpm)"); 
+} try { 
+Thread.sleep(1500); // simulate delay 
+} catch (InterruptedException e) { 
+System.out.println("Heart rate monitoring interrupted"); 
+} 
+} 
+System.out.println("Maximum Heart Rate: " + max + " bpm"); } 
+} 
+ 
+// Main Class public class PatientMonitoringSystem { 
+public static void main(String[] args) { 
+TemperatureMonitor tempThread = new TemperatureMonitor(); HeartRateMonitor hrThread = new HeartRateMonitor(); 
+ 
+tempThread.start(); hrThread.start(); 
+ 
+System.out.println("Real-time Patient Monitoring Started..."); } 
+} 
+ 
