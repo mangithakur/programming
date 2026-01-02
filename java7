@@ -1,0 +1,50 @@
+package library.books; 
+public class Book { public String title; public String author; public int totalCopies; public int availableCopies; 
+ 
+public Book(String title, String author, int totalCopies) { this.title = title; this.author = author; this.totalCopies = totalCopies; this.availableCopies = totalCopies; } 
+ 
+public void borrowBook() { if (availableCopies > 0) { availableCopies--; 
+} 
+} 
+ 
+public void returnBook() { if (availableCopies < totalCopies) { availableCopies++; 
+} 
+} 
+} 
+ 
+ 
+package library.user; 
+public class Student { public String name; public String borrowedBookTitle; 
+ 
+public Student(String name) { this.name = name; this.borrowedBookTitle = null; 
+} 
+ 
+public void borrowBook(String title) { this.borrowedBookTitle = title; 
+} 
+ 
+public void returnBook() { this.borrowedBookTitle = null; 
+} 
+} 
+ 
+ 
+import library.books.Book; import library.user.Student; 
+ 
+public class LibraryApp { public static void main(String[] args) { 
+Book book = new Book("The Alchemist", "Paulo Coelho", 3); 
+Student student = new Student("Asha"); 
+ 
+// Borrow book if (book.availableCopies > 0) { 
+book.borrowBook(); student.borrowBook(book.title); 
+System.out.println(student.name + " borrowed the book: " + student.borrowedBookTitle); } else { 
+System.out.println("Book not available to borrow."); 
+} 
+System.out.println("Status After Borrow - Title: " + book.title + ", Author: " + book.author + ", Available Copies: " + book.availableCopies + "/" + book.totalCopies); 
+ 
+// Return book book.returnBook(); 
+System.out.println(student.name + " returned the book: " + student.borrowedBookTitle); student.returnBook(); 
+ 
+ 
+System.out.println("Status After Return - Title: " + book.title + ", Author: " + 
+book.author + ", Available Copies: " + book.availableCopies + "/" + book.totalCopies); } 
+} 
+ 
