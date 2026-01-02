@@ -1,0 +1,27 @@
+import java.util.Scanner; 
+public class ShoppingCart { public static void main(String[] args) { 
+Scanner sc = new Scanner(System.in); 
+System.out.print("Enter number of items to purchase: "); int itemCount = sc.nextInt(); 
+double total = 0; 
+ 
+for (int i = 1; i <= itemCount; i++) { 
+System.out.println("\nItem " + i + " details:"); 
+System.out.print("Enter item name: "); String itemName = sc.next(); System.out.print("Enter quantity: "); int qty = sc.nextInt(); 
+System.out.print("Enter price per unit: ₹"); double price = sc.nextDouble(); 
+double itemTotal = qty * price; total += itemTotal; 
+System.out.println("Subtotal for " + itemName + ": ₹" + itemTotal); 
+} 
+ 
+double tax = total * 0.05; 
+double grandTotal = total + tax; 
+ 
+// Delivery Charge double deliveryCharge; if (grandTotal <= 500) { deliveryCharge = 50; 
+} else if (grandTotal <= 1000) { deliveryCharge = 30; 
+} else { deliveryCharge = 0; 
+} 
+ 
+grandTotal += deliveryCharge; 
+System.out.printf("\nTotal (including 5%% tax): ₹%.2f\n", total + tax); 
+System.out.printf("Delivery Charge: ₹%.2f\n", deliveryCharge); 
+System.out.printf("Final Amount to Pay: ₹%.2f\n", grandTotal); } 
+} 
