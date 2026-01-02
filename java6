@@ -1,0 +1,39 @@
+import java.util.Scanner; interface MotorControl { void startMotor(); void stopMotor(); 
+} 
+ 
+interface WaterMonitor { 
+int MAX_LEVEL = 1000; // Max tank capacity in liters void checkLevel(int currentLevel); } 
+ 
+interface EfficiencyCalculator { double calculateEfficiency(int refillAmount, int timeInSeconds); } 
+ 
+class SmartTank implements MotorControl, WaterMonitor, EfficiencyCalculator { private boolean motorOn = false; public void startMotor() { motorOn = true; 
+System.out.println("Motor started: Refilling tank..."); } 
+ 
+public void stopMotor() { motorOn = false; 
+System.out.println("Motor stopped: Tank is full or above safe level."); } 
+ 
+public void checkLevel(int currentLevel) { 
+System.out.println("Current Water Level: " + currentLevel + "L"); 
+if (currentLevel < 0.2 * MAX_LEVEL) { startMotor(); int refillAmount = MAX_LEVEL - currentLevel; int simulatedTime = 60; // Simulated refill time in seconds System.out.println("Refill Required: " + refillAmount + "L"); 
+double efficiency = calculateEfficiency(refillAmount, simulatedTime); 
+System.out.printf("Pump Efficiency: %f L/sec\n", efficiency); 
+} else if (currentLevel > 0.9 * MAX_LEVEL) { stopMotor(); 
+} else { 
+System.out.println("Water level is within safe range. No action needed."); 
+} 
+} 
+ 
+public double calculateEfficiency(int refillAmount, int timeInSeconds) { 
+return (double) refillAmount / timeInSeconds; } 
+} 
+ 
+public class SmartTankApp { 
+public static void main(String[] args) { 
+Scanner scanner = new Scanner(System.in); 
+SmartTank tank = new SmartTank(); 
+ 
+System.out.print("Enter current water level in liters: "); int currentLevel = scanner.nextInt(); 
+ 
+tank.checkLevel(currentLevel); 
+} 
+} 
