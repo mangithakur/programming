@@ -1,0 +1,39 @@
+import java.util.Scanner; 
+class BankAccount { String accountHolder; String accountNumber; double balance ; 
+// Method to set account details 
+void setAccountDetails(String name, String accNo, double initialBalance) { accountHolder = name; accountNumber = accNo; balance = initialBalance; 
+} 
+ 
+// Deposit method (₹10 fee applied directly) void deposit(double amount) { balance += amount; 
+System.out.println("₹" + amount + " deposited and the balance is " + balance); } 
+ 
+// Withdraw with minimum balance check (No penalty applied) void withdraw(double amount) { if (balance - amount < 500) { 
+System.out.println("Withdrawal denied. Minimum ₹500 balance required."); 
+} else { balance -= amount; 
+System.out.println("₹" + amount + " withdrawn and the balance is " + balance); 
+} 
+} 
+ 
+// Apply simple interest 
+void applyInterest(double ratePercent) { double interest = (balance * ratePercent) / 100; balance += interest; 
+System.out.println("Interest of ₹" + interest + " applied."); 
+} 
+ 
+void displayDetails() { 
+System.out.println("\n--- Account Summary ---"); 
+System.out.println("Name: " + accountHolder); 
+System.out.println("Account No: " + accountNumber); 
+System.out.println("Balance: ₹" + balance); } 
+} 
+ 
+public class BankApp { 
+public static void main(String[] args) { 
+Scanner sc = new Scanner(System.in); 
+BankAccount acc = new BankAccount(); 
+System.out.print("Enter account holder name: "); 
+String name = sc.nextLine(); 
+System.out.print("Enter account number: "); String accNo = sc.nextLine(); acc.setAccountDetails(name, accNo, 500); System.out.print("\nEnter deposit amount: ₹"); double depositAmount = sc.nextDouble(); acc.deposit(depositAmount); 
+System.out.print("Enter withdrawal amount: ₹"); double withdrawAmount = sc.nextDouble(); acc.withdraw(withdrawAmount); 
+System.out.print("Enter annual interest rate (%): "); double interestRate = sc.nextDouble(); acc.applyInterest(interestRate); acc.displayDetails(); sc.close(); 
+} 
+} 
