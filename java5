@@ -1,0 +1,55 @@
+public void getCustomerDetails(Scanner sc) { System.out.print("Enter Customer Name: "); customerName = sc.next(); 
+System.out.print("Enter Units Consumed: "); unitsConsumed = sc.nextInt(); } 
+ 
+public void displayDetails() { 
+System.out.println("Customer Name : " + customerName); 
+System.out.println("Units Consumed : " + unitsConsumed); } 
+} 
+// Domestic customer class 
+class DomesticCustomer extends Customer { final double RATE_PER_UNIT = 4.0; double bill; 
+double tax; 
+ 
+public void calculateBill() { bill = unitsConsumed * RATE_PER_UNIT; 
+} 
+ 
+public void calculateTax() { tax = bill * 0.05; 
+} 
+ 
+public void displayTotalAmount() { 
+	System.out.println("Total Bill 	: " + bill); 
+	System.out.println("Tax (5%) 	 : " + tax); 
+System.out.println("Total Amount  	: " + (bill + tax)); } 
+} 
+ 
+// Commercial customer class 
+class CommercialCustomer extends Customer { final double RATE_PER_UNIT = 7.0; 
+double bill; double tax; 
+public void calculateBill() { 
+bill = unitsConsumed * RATE_PER_UNIT; 
+} 
+ 
+public void calculateTax() { 
+tax = bill * 0.10; 
+} 
+ 
+public void displayTotalAmount() { 
+	System.out.println("Total Bill 	: " + bill); 
+	System.out.println("Tax (10%) 	 : " + tax); 
+System.out.println("Total Amount  	: " + (bill + tax)); } } 
+public class ElectricityBillingSystem { public static void main(String[] args) { 
+Scanner sc = new Scanner(System.in); int choice; 
+System.out.println("1. Domestic Customer"); 
+System.out.println("2. Commercial Customer"); System.out.print("Enter your choice (1 or 2): "); choice = sc.nextInt(); 
+switch (choice) { case 1: 
+DomesticCustomer domestic = new DomesticCustomer(); 
+domestic.getCustomerDetails(sc); domestic.displayDetails(); domestic.calculateBill(); 
+domestic.calculateTax(); domestic.displayTotalAmount(); 
+break; 
+case 2: 
+CommercialCustomer commercial = new CommercialCustomer(); commercial.getCustomerDetails(sc);  commercial.displayDetails(); 
+commercial.calculateBill(); 
+commercial.calculateTax(); commercial.displayTotalAmount(); 
+break; 
+} 
+} 
+} 
