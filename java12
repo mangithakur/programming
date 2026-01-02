@@ -1,0 +1,33 @@
+import javax.swing.*; import java.awt.*; 
+import java.util.Date; 
+ 
+public class BannerSwingApp extends JFrame implements Runnable { 
+String msg = " Information Science "; 
+int scrollCount = 0; boolean stopFlag = false; Thread t; 
+public BannerSwingApp() { setTitle("Banner Swing Application"); setSize(600, 200); 
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); setLocationRelativeTo(null); // Center window getContentPane().setBackground(Color.RED); 
+ 
+// Start scrolling thread 
+t = new Thread(this); 
+t.start(); 
+ 
+setVisible(true); 
+} 
+ 
+public void run() { while (!stopFlag) { repaint(); try { 
+Thread.sleep(250); 
+} catch (InterruptedException e) {} } 
+} 
+ 
+public void paint(Graphics g) { super.paint(g); 
+g.drawString("Welcome to the Applet", 50, 80); 
+g.drawString("Current Time: " + new Date().toString(), 50, 110); 
+ 
+// Scroll message char ch = msg.charAt(0); msg = msg.substring(1) + ch; scrollCount++; 
+g.drawString(msg, 50, 140); 
+g.drawString("Scroll Count: " + scrollCount, 50, 170); 
+} 
+ 
+public static void main(String[] args) { 
+SwingUtilities.invokeLater(() -> new BannerSwingApp()); } 
+} 
