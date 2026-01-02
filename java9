@@ -1,0 +1,48 @@
+import java.util.Scanner; 
+enum TicketStatus { 
+BOOKED, CANCELLED 
+} 
+ 
+@interface Important { 
+String value(); 
+} 
+class Passenger { String name; int tickets; 
+} 
+class Flight { 
+String flightNo; 
+TicketStatus status; 
+Passenger passenger; 
+ 
+Flight(String flightNo) { this.flightNo = flightNo; this.passenger = new Passenger(); this.status = TicketStatus.BOOKED; } 
+ 
+@Important("Booking method") void book() { 
+Scanner sc = new Scanner(System.in); System.out.print("Enter passenger name: "); passenger.name = sc.nextLine(); 
+System.out.print("Enter number of tickets to book: "); passenger.tickets = sc.nextInt(); status = TicketStatus.BOOKED; 
+System.out.println("Booking successful for " + passenger.name + " (" + passenger.tickets + " ticket(s))"); } 
+ 
+void cancel() { 
+Scanner sc = new Scanner(System.in); 
+System.out.print("Enter number of tickets to cancel: "); 
+int tkt = sc.nextInt(); passenger.tickets = passenger.tickets -tkt; 
+status = TicketStatus.CANCELLED; 
+} 
+ 
+void show() { 
+System.out.println("Passenger: " + passenger.name); 
+System.out.println("Tickets: " + passenger.tickets); 
+System.out.println("Flight No: " + flightNo); 
+System.out.println("Status: " + status); 
+} 
+} 
+ 
+public class App { 
+public static void main(String[] args) { Flight f = new Flight("AI101"); 
+ 
+f.book(); 
+f.show(); 
+ 
+f.cancel(); 
+System.out.println("\nAfter cancellation:"); f.show(); 
+} 
+} 
+ 
