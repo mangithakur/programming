@@ -1,0 +1,37 @@
+import java.util.Scanner; 
+class TicketBooking { // Static variables static int totalTicketsSold = 0; static int bookingCounter = 1000; 
+// Instance variables String customerName; int ticketCount; 
+int bookingID; 
+ 
+// Default constructor with input public TicketBooking() { 
+Scanner scanner = new Scanner(System.in); System.out.print("Enter customer name : "); customerName = scanner.nextLine(); System.out.print("Enter number of tickets: "); ticketCount = scanner.nextInt(); bookingID = bookingCounter++; totalTicketsSold += ticketCount; } 
+ 
+// Parameterized constructor 
+public TicketBooking(String customerName, int ticketCount) { this.customerName customerName; this.ticketCount = ticketCount; this.bookingID = bookingCounter++; totalTicketsSold += ticketCount; } 
+ 
+// Method to cancel tickets public void cancelTickets(int count) { if (count <= 0 || count > ticketCount) { 
+System.out.println("Cancellation failed for ID #" + bookingID + ": Invalid number."); 
+} else { ticketCount -= count; totalTicketsSold -= count; 
+System.out.println("Booking ID #" + bookingID + ": " + count + " ticket(s) cancelled. Remaining: " + ticketCount); 
+} 
+} 
+ 
+// New method to display booking details 
+public void displayBookingDetails() { 
+System.out.println("Booking ID: #" + bookingID); 
+System.out.println("Customer Name: " + customerName); 
+System.out.println("Tickets Booked: " + ticketCount); } 
+ 
+// Static method to show total tickets sold static void displayTotalTickets() { 
+System.out.println("\nTotal Tickets Sold So Far: " + totalTicketsSold); } 
+} 
+ 
+public class BookingApp { 
+public static void main(String[] args) { 
+// Booking using default constructor (user input) 
+TicketBooking booking1 = new TicketBooking(); 
+// Booking using parameterized constructor 
+TicketBooking booking2 = new TicketBooking("Alice", 3); booking1.displayBookingDetails(); booking2.displayBookingDetails(); TicketBooking.displayTotalTickets(); booking2.cancelTickets(1); booking1.cancelTickets(1); booking1.displayBookingDetails(); booking2.displayBookingDetails(); booking1.displayTotalTickets(); 
+} 
+} 
+ 
