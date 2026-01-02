@@ -1,0 +1,35 @@
+import java.util.Scanner; 
+public class EcommerceGenericSort { 
+// Generic method to sort any Comparable array 
+public static <T extends Comparable<T>> void sortArray(T[] array) { int n = array.length; T temp; 
+for (int i = 0; i < n - 1; i++) { for (int j = 0; j < n - i - 1; j++) { if (array[j].compareTo(array[j + 1]) > 0) { temp = array[j]; array[j] = array[j + 1]; array[j + 1] = temp; 
+} 
+} 
+} 
+} 
+ 
+// Generic method to print any array public static <T> void printArray(T[] array) { for (T element : array) { 
+System.out.print(element + " "); 
+} 
+System.out.println(); 
+} 
+ 
+public static void main(String[] args) { 
+Scanner scanner = new Scanner(System.in); 
+String[] productNames = {"Laptop", "Mobile", "Keyboard", "Mouse", "Monitor"}; 
+Double[] productPrices = {55000.0, 15000.0, 999.0, 12000.0, 499.0}; 
+System.out.println("Choose sorting option:"); 
+System.out.println("1. Sort by Product Name"); 
+System.out.println("2. Sort by Product Price"); System.out.print("Enter your choice (1 or 2): "); int choice = scanner.nextInt(); switch (choice) { case 1: 
+System.out.println("\nBefore Sorting (Product Names):"); printArray(productNames); sortArray(productNames); 
+System.out.println("After Sorting (Product Names):"); printArray(productNames); 
+break; 
+case 2: 
+System.out.println("\nBefore Sorting (Product Prices):"); printArray(productPrices); sortArray(productPrices); 
+System.out.println("After Sorting (Product Prices):"); 
+printArray(productPrices); break; 
+default: 
+System.out.println("Invalid choice. Please enter 1 or 2."); } 
+} 
+} 
+ 
