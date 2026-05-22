@@ -1,41 +1,38 @@
-import java.util.Scanner; 
-public class QuizApp { public static void main(String[] args) { Scanner sc = new Scanner(System.in); 
+Find all the customers who have at least two accounts at the Main branch. 
+mysql> SELECT customer_name 
+            FROM depositor d,account a 
+            WHERE d.accno=a.accno 
+            AND a.branch_name='Main' 
+            GROUP BY d.customer_name 
+            HAVING COUNT(d.customer_name)>=2; OR 
  
-String[] questions = { 
-"What is the capital of India?", 
-"Who is the father of Java programming?", 
-"Which gas is most abundant in Earth’s atmosphere?", "What is 10 + 15?" 
-}; 
-String[] options = { 
-"1. Delhi 2. Mumbai 3. Chennai 4. Kolkata", 
-"1. James Gosling 2. Dennis Ritchie 3. Bjarne Stroustrup 4. Guido van Rossum", 
-"1. Oxygen 2. Nitrogen 3. Hydrogen 4. Carbon Dioxide", "1. 20 2. 25 3. 30 4. 35" 
-}; 
+SELECT CNAME  
+FROM ACCOUNT A, DEPOSITOR D  
+WHERE A.ACCNO=D.ACCNO AND BNAME='MAIN'  
+GROUP BY CNAME  
+HAVING COUNT(*)>1; 
+OR SQL> select d.customer_name  from depositor d, account a  where a.accno=d.accno and a.branch_name='mandya'  group by d.customer_name  having count(*)>=2; 
+Find all the customers who have an account at all the branches located in a specific city. 
+ mysql> SELECT d.customer_name 
+             FROM account a,branch b,depositor d 
+             WHERE b.branch_name=a.branch_name AND              a.accno=d.accno AND 
+             b.branch_city='c3' 
+             GROUP BY d.customer_name 
+             HAVING COUNT(distinct b.branch_name)=( 
+                SELECT COUNT(branch_name) 
+                FROM branch 
+                WHERE branch_city='c3'); 
  
-int[] correctAnswers = {1, 1, 2, 2}; // Example Correct answer for Q4: 25 int[] userAnswers = new int[questions.length]; 
-System.out.println("===== Welcome to the Quiz! =====\n"); 
  
-// Collect answers from user 
-for (int i = 0; i < questions.length; i++) { 
-System.out.println("Question " + (i + 1) + ": " + questions[i]); 
-System.out.println(options[i]); 
-System.out.print("Enter your answer (1-4): "); 
-userAnswers[i] = sc.nextInt(); System.out.println(); 
-} 
-// Evaluate answers int score = 0; 
-System.out.println("===== Quiz Results =====\n"); 
  
-for (int i = 0; i < questions.length; i++) { 
-System.out.print("Question " + (i + 1) + 
-" | Your Answer: " + userAnswers[i] + " => "); if (userAnswers[i] == correctAnswers[i]) { System.out.println("Correct"); 
-score+=10; 
-} else { 
-System.out.println("Incorrect"); 
-} 
-} 
+Demonstrate how you delete all account tuples at every branch located in a specific city. 
+"Before deleting"; 
+SELECT * FROM ACCOUNT; 
+SQL> delete from account  where accno in (select a.accno  
+                          from account a, branch b  
+                           where a.branch_name=b.branch_name and b.branch_city='Bangalore'); 
+"After deleting"; 
+SELECT * FROM ACCOUNT; 
  
-double percentage = (score * 100.0) / (questions.length* 10); 
-System.out.println("\nTotal Score: " + score + " out of " + (questions.length * 10)); 
-System.out.printf("Percentage: %.2f \n", percentage); } 
-} 
+
  
