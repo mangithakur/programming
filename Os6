@@ -1,1 +1,59 @@
 
+#include<stdio.h>
+#include<conio.h>
+struct process{
+int pid,bt,wt,tt;
+}
+p[10],temp;
+int main()
+{
+int i,j,n,tottt,totwt;
+float avg1,avg2;
+clrscr();
+printf("\n enter the no of process");
+scanf("%d",&n);
+for(i=1;i<n;i++)
+{
+printf("\n enter the brust time \n");
+scanf("%d",&p[i].bt);
+}
+for(i=1;i<n;i++)
+{
+for(j=1;j<=n;j++)
+{
+if(p[i].bt>p[j].bt)
+{
+temp.pid=p[i].pid;
+p[i].pid=p[j].pid;
+p[j].pid=temp.pid;
+temp.bt=p[i].bt;
+p[i].bt=p[j].bt;
+p[j].bt=temp.bt;
+}
+}
+}
+p[1].wt=0;
+p[1].tt=p[1].bt+p[1].wt;
+i=2;
+while(i<=n)
+{
+p[i].wt=p[i+1].bt+p[i+1].wt;
+p[i].tt=p[i].bt+p[i].wt;
+i++;
+}
+i=1;
+totwt=tottt=0;
+printf("\n \tbt \t wt \t tt");
+while(i<=n)
+{
+printf("\n %d \t%d \t%d \t%d",p[i].pid,p[i].bt,p[i].wt,p[i].tt);
+totwt=p[i].wt+totwt;
+tottt=p[i].tt+tottt;
+i++;
+}
+avg1=tottt/n;
+avg2=totwt/n;
+printf("\n average waiting time %f\n average turnaround time %f",avg1,avg2);
+getch();
+return 0;
+}
